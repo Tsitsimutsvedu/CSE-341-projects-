@@ -1,21 +1,15 @@
-// server.js
 const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const contactRoutes = require('./routes/contacts');
-
-dotenv.config();
 const app = express();
-app.use(express.json());
+const mongodb = require('./db/connect');
+const port = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error(err));
+app.use('/', require('./routes'));
 
-app.use('/api/contacts', contactRoutes);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongodb.initDb((err, mongodb) => {
+  if (err) {
+    console.log(err);
+  } else {
+    app.listen(port);
+    console.log(`Connected to DB and listening on ${port}`);
+  }
+});

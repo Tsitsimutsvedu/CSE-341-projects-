@@ -1,28 +1,28 @@
 {
-  "name": "cse-341-projects-code",
+  "name": "cse341",
   "version": "1.0.0",
-  "description": "code for cse-341 course",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tsitsimutsvedu/CSE-341-projects-code.git"
+    "url": "git+https://github.com/kendychae/cse341.git"
   },
-  "author": "Tsitsi Mutsvedu",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tsitsimutsvedu/CSE-341-projects-code/issues"
+    "url": "https://github.com/kendychae/cse341/issues"
   },
-  "homepage": "https://github.com/Tsitsimutsvedu/CSE-341-projects-code#readme",
+  "homepage": "https://github.com/kendychae/cse341#readme",
+  "description": "",
   "dependencies": {
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "mongodb": "^4.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongodb": "^6.19.0",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   }
 }

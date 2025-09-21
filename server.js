@@ -8,6 +8,10 @@ const contactsRouter = require('./routes/contacts');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 app.use(express.json());
 app.use('/contacts', contactsRouter);
 
@@ -20,3 +24,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
 .catch(err => console.error('MongoDB connection error:', err));
+
+
+

@@ -7,8 +7,26 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.6.1",
-    "express": "^4.18.2",
-    "mongoose": "^7.0.3"
-  }
+    "express": "^4.21.2",
+    "mongoose": "^7.8.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsitsimutsvedu/CSE-341-projects-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Tsitsimutsvedu/CSE-341-projects-/issues"
+  },
+  "homepage": "https://github.com/Tsitsimutsvedu/CSE-341-projects-#readme"
 }

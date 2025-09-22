@@ -1,21 +1,27 @@
 require('dotenv').config();
 const express = require('express');
-
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const contactsRouter = require('./routes/contacts');
+const swaggerSetup = require('./swagger/swagger');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use('/contacts', contactsRouter);
 
-mongoose.connect(process.env.MONGODB_URI, {
+// Routes
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+app.use('/contacts', contactsRouter);
+swaggerSetup(app);
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -24,6 +30,5 @@ mongoose.connect(process.env.MONGODB_URI, {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
 .catch(err => console.error('MongoDB connection error:', err));
-
 
 

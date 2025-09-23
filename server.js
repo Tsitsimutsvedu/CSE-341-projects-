@@ -14,10 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 // Import routes
-const contactRoutes = require(path.join(__dirname, 'routes', 'contacts'));
+const contactRoutes = require('./routes/contacts');
 
 // Swagger setup
-const { swaggerUi, specs } = require(path.join(__dirname, 'swagger'));
+const { swaggerUi, specs } = require('./swagger');
 
 // Debug: Show MongoDB URI being used
 console.log('Connecting to MongoDB URI:', process.env.MONGODB_URI);
@@ -35,7 +35,7 @@ app.use('/contacts', contactRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Start server
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });

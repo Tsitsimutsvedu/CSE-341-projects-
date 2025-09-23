@@ -1,35 +1,31 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+const contactRoutes = require('./routes/contacts');
+const { swaggerUi, specs } = require('./swagger');
 
-const contactsRouter = require('./routes/contacts');
-const swaggerSetup = require('./swagger/swagger');
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.use('/contacts', contactsRouter);
-swaggerSetup(app);
-
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => {
-  console.log('Connected to MongoDB');
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-})
-.catch(err => console.error('MongoDB connection error:', err));
+.then(() => console.log('✅ Connected to MongoDB'))
+.catch((err) => console.error('❌ MongoDB connection error:', err));
 
+// Routes
+app.use('/contacts', contactRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+// Start server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

@@ -1,0 +1,32 @@
+### Get all contacts
+GET https://your-render-url/contacts
+
+### Get contact by ID
+GET https://your-render-url/contacts/{id}
+
+### Create contact
+POST https://your-render-url/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1990-01-01"
+}
+
+### Update contact
+PUT https://your-render-url/contacts/{id}
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@example.com",
+  "favoriteColor": "green",
+  "birthday": "1990-01-01"
+}
+
+### Delete contact
+DELETE https://your-render-url/contacts/{id}

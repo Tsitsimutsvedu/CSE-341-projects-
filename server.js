@@ -35,7 +35,7 @@ app.use('/contacts', contactRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Start server
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });

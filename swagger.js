@@ -1,17 +1,8 @@
-const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Contacts API',
-      version: '1.0.0',
-      description: 'API for managing contacts'
-    }
-  },
-  apis: ['./routes/*.js']
+module.exports = (app) => {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
 
-const specs = swaggerJsDoc(options);
-module.exports = { swaggerUi, specs };

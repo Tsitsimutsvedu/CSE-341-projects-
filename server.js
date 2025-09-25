@@ -1,41 +1,31 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
+// Import dependencies
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
+const contactsRoutes = require('./routes/contacts');
+const setupSwagger = require('./swagger');
 
-// Load environment variables from .env
-dotenv.config();
-
+// Initialize Express app
 const app = express();
-
-// Middleware
-app.use(cors());
 app.use(express.json());
 
-// Import routes
-const contactRoutes = require('./routes/contacts');
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Swagger setup
-const { swaggerUi, specs } = require('./swagger');
+// Set up routes
+app.use('/contacts', contactsRoutes);
 
-// Debug: Show MongoDB URI being used
-console.log('Connecting to MongoDB URI:', process.env.MONGODB_URI);
+// Set up Swagger documentation
+setupSwagger(app);
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('✅ Connected to MongoDB'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+// Define port with fallback
+const PORT = process.env.PORT || 3006;
 
-// Mount routes
-app.use('/contacts', contactRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-
-// Start server
-const PORT = process.env.PORT || 5000;
+// Start the server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });

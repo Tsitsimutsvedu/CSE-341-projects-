@@ -1,11 +1,11 @@
 ### Get all contacts
-GET http://localhost:3000/contacts
+GET http://localhost:3006/project1
 
 ### Get contact by ID
-GET http://localhost:3000/contacts/{{_id 68cfc6db82f909664b033a56}}
+GET http://localhost:3006/project1/{{_id 68cfc6db82f909664b033a56}}
 
 ### Create contact
-POST http://localhost:3000/contacts
+POST http://localhost:3006/project1
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Update contact
-PUT http://localhost:3000/contacts/{{_id 68d56a02c5bb15eb760336f8}}
+PUT http://localhost:3006/project1/{{_id 68d56a02c5bb15eb760336f8}}
 Content-Type: application/json
 
 {
@@ -29,4 +29,4 @@ Content-Type: application/json
 }
 
 ### Delete contact
-DELETE http://localhost:3000/contacts/{{_id 68d56a92c5bb15eb760336f9}}
+DELETE http://localhost:3006/project1/{{_id 68d56a92c5bb15eb760336f9}}

@@ -1,31 +1,29 @@
-// Load environment variables from .env file
-require('dotenv').config();
-
-// Import dependencies
 const express = require('express');
-const mongoose = require('mongoose');
-const contactsRoutes = require('./routes/contacts');
-const setupSwagger = require('./swagger');
-
-// Initialize Express app
+const bodyParser = require('body-parser');
+const mongodb = require('./data/database');
+const routes = require('./routes'); 
 const app = express();
-app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+const port = process.env.PORT || 3002;
 
-// Set up routes
-app.use('/contacts', contactsRoutes);
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+   res.setHeader('Access-Control-Allow-Origin', '*');
+   res.setHeader(
+     'Access-Control-Allow-Headers',
+     'Origin, X-Requested-With, Content-Type, Accept, Z-Key'
+   );
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+   next();
+ });
+app.use('/', require('./routes'));
 
-// Set up Swagger documentation
-setupSwagger(app);
-
-// Define port with fallback
-const PORT = process.env.PORT || 3006;
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+mongodb.initDb((err) => {
+ if(err) {
+    console.log(err);
+ }
+ else {
+    app.listen(port, () => {console.log(`Database is listening and node Running on port ${port}`)});
+ }
 });
+

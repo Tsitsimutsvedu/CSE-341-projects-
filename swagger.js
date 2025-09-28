@@ -1,8 +1,16 @@
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+const swaggerAutogen = require('swagger-autogen')();
 
-module.exports = (app) => {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-};
+const doc = {
+    info: {
+      title: 'Users Api',
+      description: 'Users Api'
+    },
+    host: 'localhost:3002s',
+    schemes: ['http','https']
+  };
 
+const outputFile = './swagger.json';
+const endpointsFiles = ['./routes/index.js'];
+
+// this will generate swagger.json
+swaggerAutogen(outputFile, endpointsFiles, doc);
